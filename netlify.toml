@@ -1,0 +1,33 @@
+# Rooftop Lineup — statická stránka, nic se nebuilduje.
+
+[build]
+  publish = "."
+
+# Bezpečnostní hlavičky pro celý web
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Stránka se necachuje — po nahrání nové verze ji všichni vidí hned,
+# bez toho, aby museli mačkat Ctrl+F5.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Ikona se naopak cachovat může
+[[headers]]
+  for = "/favicon.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Ochrana heslem (jen pokud ji tvůj účet umí — viz README):
+# odkomentuj a doplň jméno a heslo.
+# [[headers]]
+#   for = "/*"
+#   [headers.values]
+#     Basic-Auth = "rooftop:ZVOL_SI_HESLO"

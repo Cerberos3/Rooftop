@@ -1,0 +1,1584 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rooftop Lineup</title>
+<meta name="description" content="Lineup dílů, zásobník nápadů a rozdělení rolí pro sérii Rooftop studia.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15120E;
+  --panel:#1D1812;
+  --rail:#2A231C;
+  --edge:#3A3028;
+  --alu:#CFC8BA;
+  --alu-dim:#8A8278;
+  --amber:#E8A33D;
+  --rec:#D2452F;
+  --sage:#86A678;
+  --steel:#6F7E8C;
+
+  --strip-h:72px;
+  --maxw:1120px;
+  --r:3px;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ink);
+  color:var(--alu);
+  font-family:"Barlow",system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(232,163,61,.07), transparent 70%),
+    repeating-linear-gradient(180deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px);
+}
+.wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 20px 96px}
+
+/* ---------- master section ---------- */
+.master{
+  padding:28px 0 20px;
+  border-bottom:1px solid var(--edge);
+  margin-bottom:26px;
+}
+.master-top{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;justify-content:space-between}
+.brand{display:flex;align-items:baseline;gap:12px;min-width:0}
+.brand h1{
+  font-family:"Barlow Condensed",sans-serif;
+  font-weight:700;font-size:clamp(34px,6vw,52px);
+  letter-spacing:.055em;text-transform:uppercase;
+  margin:0;line-height:.95;color:#F0EADF;
+}
+.brand .sub{
+  font-family:"Barlow Condensed",sans-serif;
+  font-weight:500;font-size:clamp(15px,2.4vw,19px);
+  color:var(--amber);letter-spacing:.14em;text-transform:uppercase;
+  white-space:nowrap;
+}
+.whoami{
+  display:flex;align-items:center;gap:8px;
+  font-size:14px;color:var(--alu-dim);
+}
+.whoami button{
+  background:none;border:1px solid var(--edge);color:var(--alu);
+  font:inherit;font-size:13px;padding:4px 10px;border-radius:var(--r);cursor:pointer;
+}
+.whoami button:hover{border-color:var(--amber);color:var(--amber)}
+
+/* VU meter */
+.vu{margin-top:22px}
+.vu-track{
+  display:flex;height:10px;border-radius:2px;overflow:hidden;
+  background:var(--rail);border:1px solid var(--edge);
+}
+.vu-track span{display:block;transition:flex-grow .5s cubic-bezier(.2,.7,.3,1)}
+.vu-legend{
+  display:flex;flex-wrap:wrap;gap:4px 22px;margin-top:10px;
+  font-size:13.5px;color:var(--alu-dim);
+}
+.vu-legend b{color:var(--alu);font-weight:600}
+.vu-legend i{
+  display:inline-block;width:9px;height:9px;border-radius:50%;
+  margin-right:7px;vertical-align:baseline;font-style:normal;
+}
+
+/* ---------- tabs ---------- */
+.tabs{
+  display:flex;gap:26px;margin-bottom:22px;
+  border-bottom:1px solid var(--edge);
+  position:sticky;top:0;z-index:5;
+  background:linear-gradient(var(--ink) 72%, transparent);
+  padding-top:10px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  background:none;border:0;border-bottom:2px solid transparent;
+  color:var(--alu-dim);font-family:"Barlow Condensed",sans-serif;
+  font-weight:600;font-size:19px;letter-spacing:.06em;text-transform:uppercase;
+  padding:0 0 10px;margin-bottom:-1px;cursor:pointer;
+}
+.tab:hover{color:var(--alu)}
+.tab[aria-selected="true"]{color:var(--amber);border-bottom-color:var(--amber)}
+.tab:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+.lede{
+  max-width:62ch;margin:0 0 22px;font-size:15.5px;color:var(--alu-dim);line-height:1.6;
+}
+
+/* ---------- group switch ---------- */
+.groups{display:flex;gap:0;margin-bottom:18px;border:1px solid var(--edge);border-radius:var(--r);overflow:hidden;width:fit-content;max-width:100%}
+.group{
+  background:none;border:0;border-right:1px solid var(--edge);
+  color:var(--alu-dim);font:inherit;font-size:14.5px;font-weight:500;
+  padding:8px 18px;cursor:pointer;white-space:nowrap;
+}
+.group:last-child{border-right:0}
+.group:hover{color:var(--alu)}
+.group[aria-pressed="true"]{background:var(--rail);color:var(--amber);font-weight:600}
+.group:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+
+/* ---------- ideas ---------- */
+.ideas{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;align-items:start}
+.idea{
+  background:var(--panel);border:1px solid var(--edge);border-radius:5px;
+  border-top:2px solid var(--cat-c);padding:15px 16px 14px;
+  transition:border-color .18s,transform .18s;
+}
+.idea:hover{border-color:var(--alu-dim);transform:translateY(-1px)}
+.idea.open{border-color:var(--alu-dim);transform:none}
+.idea-top{display:flex;align-items:baseline;gap:10px;justify-content:space-between;margin-bottom:7px}
+.idea h3{
+  font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:20px;
+  margin:0;color:#F0EADF;line-height:1.2;letter-spacing:.01em;
+}
+.effort{
+  flex:none;font-size:12.5px;color:var(--alu-dim);border:1px solid var(--edge);
+  border-radius:999px;padding:1px 9px;white-space:nowrap;
+}
+.idea .why{margin:0;font-size:14.5px;line-height:1.5;color:var(--alu)}
+.idea .cat{margin:9px 0 0;font-size:13px;color:var(--cat-c)}
+.idea .cat span{color:var(--alu-dim)}
+.idea-bar{
+  display:flex;gap:6px;flex-wrap:wrap;align-items:center;
+  margin-top:12px;padding-top:11px;border-top:1px solid rgba(255,255,255,.055);
+}
+.link{
+  background:none;border:0;color:var(--alu-dim);font:inherit;font-size:13.5px;
+  cursor:pointer;padding:3px 0;
+}
+.link:hover{color:var(--amber)}
+.link.push{color:var(--amber)}
+.link.push:hover{color:#F3BE6A}
+.idea-notes{margin-top:12px;padding-top:11px;border-top:1px solid rgba(255,255,255,.055)}
+
+/* ---------- team ---------- */
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;align-items:start}
+.person{
+  background:var(--panel);border:1px solid var(--edge);border-radius:6px;
+  padding:20px;position:relative;overflow:hidden;
+  transition:border-color .18s,transform .18s;
+}
+.person::after{
+  content:"";position:absolute;inset:0 0 auto 0;height:3px;
+  background:linear-gradient(90deg,var(--who-c),transparent 85%);
+}
+.person:hover{border-color:var(--alu-dim);transform:translateY(-1px)}
+.person-top{display:flex;align-items:center;gap:14px;margin-bottom:15px}
+.ava{
+  flex:none;width:46px;height:46px;border-radius:50%;
+  display:grid;place-items:center;
+  font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
+  letter-spacing:.04em;color:var(--ink);background:var(--who-c);
+}
+.person-id{min-width:0}
+.person-id h3{
+  font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:23px;
+  margin:0;color:#F0EADF;line-height:1.1;letter-spacing:.015em;
+}
+.person-id p{margin:2px 0 0;font-size:14px;color:var(--who-c)}
+.person .bio{margin:0 0 14px;font-size:14.5px;line-height:1.55;color:var(--alu)}
+.does{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.does li{
+  position:relative;padding-left:17px;font-size:14px;line-height:1.45;color:var(--alu);
+}
+.does li::before{
+  content:"";position:absolute;left:0;top:7px;width:6px;height:6px;
+  border-radius:1px;background:var(--who-c);opacity:.75;
+}
+.person .todo{
+  margin:0;padding:11px 13px;border:1px dashed var(--edge);border-radius:var(--r);
+  font-size:14px;color:var(--alu-dim);line-height:1.5;
+}
+.person-bar{
+  display:flex;gap:14px;align-items:center;margin-top:16px;
+  padding-top:13px;border-top:1px solid rgba(255,255,255,.055);
+}
+.load{font-size:13.5px;color:var(--alu-dim)}
+.load b{color:var(--alu);font-weight:600}
+
+/* owner chip */
+.owner{
+  display:inline-flex;align-items:center;gap:6px;flex:none;
+  font-size:13px;color:var(--alu-dim);
+}
+.owner .ava{width:21px;height:21px;font-size:11px;letter-spacing:0}
+.owner.none .ava{background:var(--rail);color:var(--alu-dim);border:1px dashed var(--edge)}
+
+/* ---------- search ---------- */
+.search{position:relative;flex:1;min-width:170px;max-width:290px}
+.search input{
+  background:var(--panel);border:1px solid var(--edge);color:var(--alu);
+  font:inherit;font-size:14px;padding:6px 30px 6px 11px;border-radius:999px;width:100%;
+}
+.search input::placeholder{color:var(--alu-dim)}
+.search .clear{
+  position:absolute;right:4px;top:50%;transform:translateY(-50%);
+  background:none;border:0;color:var(--alu-dim);cursor:pointer;font:inherit;
+  font-size:16px;line-height:1;padding:4px 7px;border-radius:50%;
+}
+.search .clear:hover{color:var(--alu)}
+.kbd{
+  display:inline-block;border:1px solid var(--edge);border-bottom-width:2px;
+  border-radius:3px;padding:0 5px;font-size:12px;color:var(--alu-dim);
+  background:var(--rail);min-width:17px;text-align:center;
+}
+
+/* ---------- toast ---------- */
+.toasts{
+  position:fixed;left:20px;bottom:20px;z-index:50;
+  display:flex;flex-direction:column;gap:8px;max-width:calc(100% - 40px);
+}
+.toast{
+  display:flex;align-items:center;gap:14px;
+  background:var(--rail);border:1px solid var(--edge);border-left:3px solid var(--amber);
+  border-radius:var(--r);padding:11px 15px;font-size:14.5px;color:var(--alu);
+  box-shadow:0 8px 24px rgba(0,0,0,.45);
+  animation:toastIn .2s cubic-bezier(.2,.8,.3,1);
+}
+.toast button{
+  background:none;border:0;color:var(--amber);font:inherit;font-weight:600;
+  font-size:14px;cursor:pointer;padding:0;white-space:nowrap;
+}
+.toast button:hover{text-decoration:underline}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- drag ---------- */
+.strip.dragging{opacity:.4}
+.strip.over{border-top:2px solid var(--amber)}
+.chan[draggable]{cursor:grab}
+.chan[draggable]:active{cursor:grabbing}
+
+@keyframes reveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.strip-body,.idea-notes{animation:reveal .2s ease-out}
+
+.controls{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  margin-bottom:18px;
+}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.chip{
+  background:var(--panel);border:1px solid var(--edge);color:var(--alu-dim);
+  font:inherit;font-size:13.5px;padding:5px 12px;border-radius:999px;cursor:pointer;
+  transition:color .15s,border-color .15s;
+}
+.chip:hover{color:var(--alu)}
+.chip[aria-pressed="true"]{color:var(--ink);background:var(--alu);border-color:var(--alu);font-weight:600}
+.spacer{flex:1}
+.btn{
+  background:var(--amber);border:1px solid var(--amber);color:#1A1309;
+  font:inherit;font-weight:600;font-size:14px;padding:7px 16px;
+  border-radius:var(--r);cursor:pointer;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:none;color:var(--alu);border-color:var(--edge)}
+.btn.ghost:hover{border-color:var(--alu);filter:none}
+
+/* ---------- console ---------- */
+.console{display:flex;flex-direction:column;gap:5px}
+
+.strip{
+  background:var(--panel);
+  border:1px solid var(--edge);
+  border-left:4px solid var(--type-c,var(--edge));
+  border-radius:var(--r);
+  overflow:hidden;
+}
+.strip.open{border-color:var(--alu-dim)}
+
+.strip-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 175px 148px 34px;
+  align-items:center;gap:16px;
+  min-height:var(--strip-h);
+  padding:12px 14px;
+}
+.strip-toggle{
+  display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;align-items:center;
+  background:none;border:0;padding:0;margin:0;text-align:left;color:inherit;font:inherit;
+  cursor:pointer;min-width:0;
+}
+.strip-head:hover{background:rgba(255,255,255,.022)}
+.strip-toggle:focus-visible,.caret:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:2px}
+
+.chan{
+  font-family:"Barlow Condensed",sans-serif;
+  font-weight:600;font-size:13px;letter-spacing:.1em;
+  color:var(--alu-dim);text-align:center;
+}
+.chan .num{display:block;font-size:22px;color:var(--alu);letter-spacing:.02em;line-height:1}
+.chan .kind{display:block;margin-top:3px;color:var(--type-c,var(--alu-dim))}
+
+.title{min-width:0}
+.title h2{
+  font-family:"Barlow Condensed",sans-serif;
+  font-weight:600;font-size:23px;letter-spacing:.01em;
+  margin:0;color:#F0EADF;line-height:1.15;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.title p{
+  margin:2px 0 0;font-size:14px;color:var(--alu-dim);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+
+/* fader = ovladač stavu */
+.fader{display:flex;flex-direction:column;gap:7px}
+.fader input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:16px;background:none;cursor:pointer;margin:0;
+}
+.fader input[type=range]:focus{outline:0}
+.fader input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 2px var(--ink),0 0 0 4px var(--amber)}
+.fader input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 2px var(--ink),0 0 0 4px var(--amber)}
+.fader input[type=range]::-webkit-slider-runnable-track{
+  height:4px;border-radius:2px;background:var(--rail);border:1px solid var(--edge);
+}
+.fader input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:13px;height:15px;border-radius:2px;margin-top:-7px;
+  background:var(--st-c);box-shadow:0 0 0 2px rgba(0,0,0,.4);
+}
+.fader input[type=range]::-moz-range-track{
+  height:4px;border-radius:2px;background:var(--rail);border:1px solid var(--edge);
+}
+.fader input[type=range]::-moz-range-thumb{
+  width:13px;height:15px;border:0;border-radius:2px;
+  background:var(--st-c);box-shadow:0 0 0 2px rgba(0,0,0,.4);
+}
+.fader-label{font-size:13px;color:var(--st-c);font-weight:500;line-height:1}
+
+.meta{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--alu-dim);justify-content:flex-end}
+.meta .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);flex:none}
+.caret{
+  background:none;border:0;color:var(--alu-dim);cursor:pointer;
+  justify-self:end;transition:transform .2s;font-size:13px;padding:6px;
+}
+.strip.open .caret{transform:rotate(90deg)}
+
+/* ---------- body ---------- */
+.strip-body{
+  border-top:1px solid var(--edge);
+  padding:18px 14px 20px 70px;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,420px);gap:30px;
+}
+.detail dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:14.5px}
+.detail dt{color:var(--alu-dim)}
+.detail dd{margin:0;color:var(--alu)}
+.detail .hook{
+  margin:16px 0 0;padding:12px 14px;border-left:2px solid var(--amber);
+  background:rgba(232,163,61,.05);font-size:15px;line-height:1.5;
+}
+.detail .hook em{color:var(--alu-dim);font-style:normal;font-size:13px;display:block;margin-bottom:4px}
+.row-actions{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.row-actions select{
+  background:var(--rail);border:1px solid var(--edge);color:var(--alu);
+  font:inherit;font-size:13.5px;padding:6px 10px;border-radius:var(--r);
+}
+.danger{color:var(--rec);background:none;border:1px solid transparent;font:inherit;font-size:13.5px;cursor:pointer;padding:6px 4px}
+.danger:hover{border-color:var(--rec);border-radius:var(--r)}
+
+/* notes */
+.notes h3{
+  font-family:"Barlow Condensed",sans-serif;font-weight:600;
+  font-size:15px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--alu-dim);margin:0 0 12px;
+}
+.note{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.055)}
+.note:last-of-type{border-bottom:0}
+.note p{margin:0;font-size:14.5px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
+.note .by{margin-top:3px;font-size:12.5px;color:var(--alu-dim)}
+.note .by button{background:none;border:0;color:var(--alu-dim);cursor:pointer;font:inherit;padding:0 0 0 8px}
+.note .by button:hover{color:var(--rec)}
+.empty{font-size:14px;color:var(--alu-dim);margin:0 0 12px}
+.composer{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+textarea,input[type=text]{
+  background:var(--ink);border:1px solid var(--edge);color:var(--alu);
+  font:inherit;font-size:14.5px;padding:9px 11px;border-radius:var(--r);width:100%;
+  resize:vertical;
+}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--amber);outline-offset:-1px;border-color:transparent}
+textarea{min-height:68px}
+
+/* ---------- dialog ---------- */
+dialog{
+  background:var(--panel);color:var(--alu);border:1px solid var(--edge);
+  border-radius:4px;padding:0;max-width:470px;width:calc(100% - 32px);
+}
+dialog::backdrop{background:rgba(8,6,4,.78)}
+.dlg{padding:22px 24px 24px}
+.dlg h2{
+  font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:26px;
+  letter-spacing:.04em;text-transform:uppercase;margin:0 0 4px;color:#F0EADF;
+}
+.dlg > p{margin:0 0 18px;font-size:14.5px;color:var(--alu-dim)}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:13.5px;color:var(--alu-dim);margin-bottom:5px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+select{
+  background:var(--ink);border:1px solid var(--edge);color:var(--alu);
+  font:inherit;font-size:14.5px;padding:9px 11px;border-radius:var(--r);width:100%;
+}
+.dlg-actions{display:flex;gap:9px;justify-content:flex-end;margin-top:20px}
+
+.foot{margin-top:44px;font-size:13px;color:var(--alu-dim);line-height:1.7}
+
+@media (max-width:860px){
+  .strip-head{grid-template-columns:minmax(0,1fr) auto 34px;gap:10px;padding:12px}
+  .strip-toggle{grid-template-columns:44px minmax(0,1fr);gap:12px}
+  .fader{display:none}
+  .meta{font-size:12.5px}
+  .meta .owner span:not(.ava){display:none}
+  .team{grid-template-columns:1fr}
+  .strip-body{grid-template-columns:1fr;gap:24px;padding:16px 14px 18px}
+  .toasts{left:12px;right:12px;bottom:12px}
+  .hints{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="master">
+    <div class="master-top">
+      <div class="brand">
+        <h1>Rooftop</h1>
+        <span class="sub">lineup</span>
+      </div>
+      <div class="whoami">
+        <span id="whoLabel">Píšeš jako —</span>
+        <button id="whoBtn" type="button">Změnit</button>
+      </div>
+    </div>
+
+    <div class="vu">
+      <div class="vu-track" id="vuTrack"></div>
+      <div class="vu-legend" id="vuLegend"></div>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button type="button" class="tab" data-tab="lineup" aria-selected="true">Lineup</button>
+    <button type="button" class="tab" data-tab="ideas" aria-selected="false">Co můžeme dělat</button>
+    <button type="button" class="tab" data-tab="team" aria-selected="false">Kdo co dělá</button>
+  </nav>
+
+  <section id="panel-lineup">
+    <div class="controls">
+      <div class="search">
+        <input type="text" id="q" placeholder="Hledat v dílech…" autocomplete="off">
+        <button class="clear" type="button" id="qClear" hidden aria-label="Zrušit hledání">×</button>
+      </div>
+      <div class="filters" id="filters"></div>
+      <span class="spacer"></span>
+      <button class="btn" id="addBtn" type="button">Přidat díl</button>
+    </div>
+
+    <main class="console" id="console"></main>
+    <p class="hints" id="hints"></p>
+  </section>
+
+  <section id="panel-ideas" hidden>
+    <div class="groups" id="groups">
+      <button type="button" class="group" data-group="sluzba" aria-pressed="true">Nabídka studiu</button>
+      <button type="button" class="group" data-group="obsah" aria-pressed="false">Nápady na obsah</button>
+    </div>
+
+    <p class="lede" id="groupLede"></p>
+
+    <div class="controls">
+      <div class="search">
+        <input type="text" id="iq" placeholder="Hledat…" autocomplete="off">
+        <button class="clear" type="button" id="iqClear" hidden aria-label="Zrušit hledání">×</button>
+      </div>
+      <div class="filters" id="ideaFilters"></div>
+      <span class="spacer"></span>
+      <button class="btn" id="addIdeaBtn" type="button">Přidat</button>
+    </div>
+
+    <div class="ideas" id="ideas"></div>
+  </section>
+
+  <section id="panel-team" hidden>
+    <p class="lede">Kdo za co ručí, ať se věci neztrácejí mezi námi. Díly v lineupu se dají komukoli přiřadit — pak je u kanálu vidět, kdo ho má na starost.</p>
+    <div class="team" id="team"></div>
+  </section>
+
+  <p class="foot">
+    Data se zatím ukládají jen v tomhle prohlížeči. Až připojíš databázi, přepiš objekt <code>store</code> na začátku skriptu — zbytek stránky zůstane beze změny.
+  </p>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<dialog id="personDialog">
+  <form method="dialog" class="dlg" id="personForm">
+    <h2 id="personDlgTitle">Upravit profil</h2>
+    <p>Čím konkrétnější role, tím míň dohadování, kdo co dělá.</p>
+    <div class="field">
+      <label for="p-name">Jméno</label>
+      <input type="text" id="p-name" required placeholder="Ondra">
+    </div>
+    <div class="field">
+      <label for="p-role">Role</label>
+      <input type="text" id="p-role" placeholder="Producent a zvukový inženýr">
+    </div>
+    <div class="field">
+      <label for="p-bio">Čím je ve studiu</label>
+      <textarea id="p-bio" placeholder="Jedna dvě věty — kdo to je a co přináší."></textarea>
+    </div>
+    <div class="field">
+      <label for="p-does">Co má na starost — každý bod na nový řádek</label>
+      <textarea id="p-does" style="min-height:96px" placeholder="Vede natáčení&#10;Schvaluje finální střih"></textarea>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" class="btn ghost" id="personCancel">Zrušit</button>
+      <button type="submit" class="btn">Uložit profil</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="ideaDialog">
+  <form method="dialog" class="dlg" id="ideaForm">
+    <h2 id="ideaDlgTitle">Nový nápad</h2>
+    <p id="ideaDlgLede">Co studio umí nabídnout. Jedna věta proč to zabere.</p>
+    <div class="field">
+      <label for="i-title" id="ideaTitleLabel">Nápad</label>
+      <input type="text" id="i-title" required placeholder="Co dělá kompresor">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="i-cat">Kategorie</label>
+        <select id="i-cat"></select>
+      </div>
+      <div class="field">
+        <label for="i-effort">Náročnost</label>
+        <select id="i-effort"></select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="i-why" id="ideaWhyLabel">Proč to zabere</label>
+      <textarea id="i-why" placeholder="Komu to pomůže, co z toho má studio…"></textarea>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" class="btn ghost" id="ideaCancel">Zrušit</button>
+      <button type="submit" class="btn" id="ideaSave">Uložit nápad</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="epDialog">
+  <form method="dialog" class="dlg" id="epForm">
+    <h2 id="dlgTitle">Nový díl</h2>
+    <p>Píseň je kostra dílu, interpret je kulisa.</p>
+    <div class="field">
+      <label for="f-title">Název dílu</label>
+      <input type="text" id="f-title" required placeholder="Balkónovka">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="f-artist">Interpret</label>
+        <input type="text" id="f-artist" placeholder="Rest">
+      </div>
+      <div class="field">
+        <label for="f-year">Rok</label>
+        <input type="text" id="f-year" placeholder="2010">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="f-type">Typ dílu</label>
+        <select id="f-type"></select>
+      </div>
+      <div class="field">
+        <label for="f-status">Stav</label>
+        <select id="f-status"></select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-owner">Kdo to má na starost</label>
+      <select id="f-owner"></select>
+    </div>
+    <div class="field">
+      <label for="f-hook">Hook — čím díl otevírá</label>
+      <textarea id="f-hook" placeholder="Konkrétní scéna, ne „dnes budeme mluvit o…“"></textarea>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" class="btn ghost" id="dlgCancel">Zrušit</button>
+      <button type="submit" class="btn" id="dlgSave">Uložit díl</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="nameDialog">
+  <form method="dialog" class="dlg" id="nameForm">
+    <h2>Kdo jsi?</h2>
+    <p>Jméno se připíše k poznámkám, které tu necháš.</p>
+    <div class="field">
+      <label for="f-name">Jméno</label>
+      <input type="text" id="f-name" required placeholder="Dominik">
+    </div>
+    <div class="dlg-actions">
+      <button type="submit" class="btn">Pokračovat</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+/* ============================================================
+   DATA LAYER — jediné místo, které se mění při napojení na DB.
+   Všechny funkce jsou async, takže stačí nahradit jejich těla
+   voláním tvého API a zbytek stránky funguje dál.
+   ============================================================ */
+const KEY = 'rooftop-lineup-v4';
+
+const store = {
+  async load(){
+    try{
+      const raw = localStorage.getItem(KEY);
+      if(raw){
+        const d = JSON.parse(raw);
+        return {episodes:d.episodes||[], ideas:d.ideas||[], team:d.team||seedTeam()};
+      }
+      const v3 = localStorage.getItem('rooftop-lineup-v3');
+      if(v3){
+        const d = JSON.parse(v3);
+        return {episodes:d.episodes||[], ideas:d.ideas||[], team:seedTeam()};
+      }
+      const v2 = localStorage.getItem('rooftop-lineup-v2');
+      if(v2){
+        const d = JSON.parse(v2);
+        return {
+          episodes: d.episodes || [],
+          ideas: [...seedServices(), ...(d.ideas || []).map(i => ({...i, kind: i.kind || 'obsah'}))],
+          team: seedTeam()
+        };
+      }
+      const v1 = localStorage.getItem('rooftop-lineup-v1');
+      if(v1) return {episodes: JSON.parse(v1), ideas: [...seedServices(), ...seedIdeas()], team: seedTeam()};
+    }catch(e){ console.warn('Nepodařilo se načíst uložená data.', e); }
+    return {episodes: seed(), ideas: [...seedServices(), ...seedIdeas()], team: seedTeam()};
+  },
+  async save(data){
+    try{ localStorage.setItem(KEY, JSON.stringify(data)); }
+    catch(e){ console.warn('Nepodařilo se uložit.', e); }
+  }
+};
+
+/* ---------- číselníky ---------- */
+const TYPES = {
+  A:{label:'Milník', color:'#E8A33D', note:'Píseň, co změnila směr studia'},
+  B:{label:'Meme',   color:'#D2452F', note:'Píseň, co si začala žít vlastním životem'},
+  C:{label:'Přerod', color:'#86A678', note:'Píseň z doby, kdy se studio měnilo'},
+  X:{label:'Mimo',   color:'#6F7E8C', note:'Díl, který nestojí na jedné písničce'}
+};
+const STATUS = {
+  napad:     {label:'Nápad',      color:'#6F7E8C', pos:8},
+  overit:    {label:'Ověřit',     color:'#D2452F', pos:32},
+  pripraveno:{label:'Připraveno', color:'#E8A33D', pos:56},
+  natoceno:  {label:'Natočeno',   color:'#C9B06A', pos:80},
+  venku:     {label:'Venku',      color:'#86A678', pos:97}
+};
+
+/* ---------- tým ---------- */
+function seedTeam(){
+  return [
+    {
+      id:'ondra', name:'Ondra', color:'#E8A33D',
+      role:'Producent a zvukový inženýr',
+      bio:'Zakladatel a majitel studia, hlavní sound engineer. Od roku 2007 mu rukama prošly tisíce klientů napříč žánry — od rapu přes pop a jazz po dětskou muziku.',
+      does:[
+        'Tvář před kamerou — vypráví příběhy ze studia',
+        'Ověřuje fakta o skladbách a archivu',
+        'Rozhoduje, co se o klientech smí říct',
+        'Shání stopy, dema a archivní materiál'
+      ]
+    },
+    {
+      id:'kuba', name:'Kuba', color:'#86A678',
+      role:'', bio:'', does:[],
+      hint:'Na webu je v týmu druhý člověk popsaný jako zkušený producent a aktivní muzikant, který provází většinou nahrávacích sessions — jméno u toho ale uvedené nebylo. Jestli je to Kuba, doplň mu roli a co má na starost.'
+    },
+    {
+      id:'misa', name:'Míša', color:'#C9B06A',
+      role:'Spojka mezi studiem a klienty',
+      bio:'Hlavní kontakt pro klienty — drží komunikaci, termíny a domluvy kolem sessions.',
+      does:[
+        'Domlouvá hosty a natáčecí termíny',
+        'Hlídá souhlasy interpretů u dílů',
+        'Ví, s čím klienti do studia chodí — zdroj témat'
+      ]
+    },
+    {
+      id:'dominik', name:'Dominik', color:'#D2452F',
+      role:'Produkce a postprodukce',
+      bio:'Vede výrobu série — od scénáře po hotové klipy. Zajišťuje AI produkci, střih a vizuály.',
+      does:[
+        'Píše scénáře a otázky k dílům',
+        'Natáčí a stříhá dlouhé díly',
+        'Vyrábí vertikály na TikTok, Reels a Shorts',
+        'Hlídá kadenci vydávání'
+      ]
+    }
+  ];
+}
+
+function seed(){
+  const e = (o) => Object.assign({id:uid(), artist:'', year:'', hook:'', notes:[], owner:''}, o);
+  return [
+    e({title:'Balkónovka', artist:'Rest', year:'2010', type:'A', status:'pripraveno', owner:'dominik',
+       hook:'Tohle studio se jmenuje Rooftop kvůli jedné větě, kterou tady někdo řekl při rozezpívávání.',
+       notes:[{id:uid(), by:'Dominik', text:'Pilot. Musí odbavit dvě věci naráz — představit studio a založit formát.', at:Date.now()}]}),
+    e({title:'Zombie planeta', artist:'FIZI', type:'B', status:'overit', owner:'ondra',
+       hook:'Track, který se stal memem a vrátil se jako vokodér přes sovětskou hymnu.',
+       notes:[{id:uid(), by:'Dominik', text:'Ověřit u Ondry, jestli vznikla u nás. FIZI je na klientském seznamu, ale vazba té skladby na studio nikde.', at:Date.now()}]}),
+    e({title:'Gear, co drží hodnotu', type:'X', status:'napad',
+       hook:'TR-808 za rohem a hned vedle dětský xylofon. Jeden záběr, celá filozofie studia.'}),
+    e({title:'Dětská muzika v rapovém studiu', type:'C', status:'napad',
+       hook:'Producent z hip-hopové scény dneska dělá muziku pro děti — a tvrdí, že děti nic neodpustí.'}),
+    e({title:'Přerod rap → pop', type:'C', status:'napad', hook:''}),
+    e({title:'První nahrávka vůbec', type:'A', status:'napad',
+       hook:'V pěti letech. Casio pianko nahrávané na magnetofon, rapování a bubnování vařečkami na hrnce.'}),
+    e({title:'Ondra 2011 vs. Ondra dnes', type:'X', status:'napad',
+       hook:'Rozhovor z roku 2011 a rozhovor z 2023. Střih, který může udělat jenom studio.'}),
+    e({title:'První díl s hostem', type:'A', status:'napad', hook:''})
+  ];
+}
+
+function uid(){ return Math.random().toString(36).slice(2,10); }
+
+/* ---------- zásobník nápadů ---------- */
+const GROUPS = {
+  sluzba:{label:'Nabídka studiu', lede:'Co studio dostane, když se do toho pustíme. Psáno tak, jak to zajímá majitele — co to vydělá a co ušetří, ne jakou technologií se to dělá.'},
+  obsah: {label:'Nápady na obsah', lede:'Zásobník formátů pro kameru. Co se osvědčí, pošli jedním klikem do lineupu.'}
+};
+
+const SERVICE_CATS = {
+  tvorba:{label:'Tvorba',   color:'#E8A33D'},
+  dosah: {label:'Dosah',    color:'#D2452F'},
+  provoz:{label:'Provoz',   color:'#6F7E8C'}
+};
+const IDEA_CATS = {
+  remeslo:{label:'Nástroje a řemeslo', color:'#E8A33D'},
+  trend:  {label:'Trendy a dosah',     color:'#D2452F'},
+  lidi:   {label:'Lidi a hosté',       color:'#86A678'},
+  archiv: {label:'Archiv a nostalgie', color:'#6F7E8C'}
+};
+const ALL_CATS = {...SERVICE_CATS, ...IDEA_CATS};
+const catsFor = (g) => g === 'sluzba' ? SERVICE_CATS : IDEA_CATS;
+
+const EFFORT = {
+  rychle:{label:'Rychlé',  note:'Natočíš mezi řečí, jedna lokace'},
+  stredni:{label:'Střední', note:'Příprava nebo domluva navíc'},
+  velke: {label:'Velké',   note:'Vlastní natáčecí den nebo práva'}
+};
+
+function seedServices(){
+  const s = (cat, effort, title, why) => ({id:uid(), kind:'sluzba', cat, effort, title, why, by:'Dominik', notes:[]});
+  return [
+    /* Tvorba */
+    s('tvorba','stredni','Hudba a úpravy přes AI',
+      'Instrumentály, vokály, remixy a mastering. Studio zvládne víc verzí jedné skladby za zlomek času, který by na ně padl ručně.'),
+    s('tvorba','stredni','Dabing a klonování hlasu',
+      'Jeden nahraný hlas ve víc jazycích. Otevírá zakázky, které by jinak musely jít k jinému dodavateli.'),
+    s('tvorba','velke','Videoklipy od nápadu po hotové',
+      'Klip bez štábu a bez lokace. Pro interprety, kterým by klasické natáčení sežralo celý rozpočet.'),
+    s('tvorba','rychle','Cover arty a vizuály k vydání',
+      'Obaly singlů a alb v několika variantách během odpoledne. Klient si vybírá, místo aby čekal na grafika.'),
+    s('tvorba','stredni','Visualizéry ke skladbám',
+      'Animovaný vizuál napojený na hudbu. Levná cesta, jak dostat audio na YouTube a sítě jako video.'),
+    s('tvorba','rychle','Překlad a lokalizace',
+      'Texty, popisy a titulky do dalších jazyků. Pro klienty, co míří za hranice.'),
+
+    /* Dosah */
+    s('dosah','rychle','Vertikály z jedné skladby',
+      'Z jednoho tracku série klipů na TikTok, Reels a Shorts. Místo jednoho výstupu má klient měsíc obsahu.'),
+    s('dosah','stredni','Promo a reklamní obsah',
+      'Reklamy, promo videa a posty na sítě ke každému vydání. Studio tím přestává být jen dodavatel zvuku.'),
+    s('dosah','velke','Celá produkční linka',
+      'Skladba → cover → klip → Shorts → sítě jako jeden balíček. Nejsilnější věc k prodeji, protože klient řeší jedno místo místo pěti.'),
+
+    /* Provoz */
+    s('provoz','stredni','AI asistent studia',
+      'Odpovídá klientům, posílá nabídky, hlídá rezervace a bere z Ondry agendu, kterou dnes dělá mezi sessionami.'),
+    s('provoz','stredni','Automatizace běžné práce',
+      'Propojení nástrojů, co už studio používá, aby se věci nepřeklikávaly ručně. Nejrychlejší úspora času bez změny toho, jak se pracuje.'),
+    s('provoz','velke','Vlastní nástroje pro studio',
+      'Klientský portál nebo systém pro práci s nahrávkami. Dává smysl až po tom, co se prvně ověří jednodušší kroky.')
+  ];
+}
+
+function seedIdeas(){
+  const i = (cat, effort, title, why) => ({id:uid(), kind:'obsah', cat, effort, title, why, by:'', notes:[]});
+  return [
+    /* Nástroje a řemeslo — vysvětlovačky */
+    i('remeslo','rychle','Co dělá kompresor','Jeden vokál, efekt zapnutý a vypnutý. Lidi roky slyší to slovo a nikdo jim to neukázal na zvuku.'),
+    i('remeslo','rychle','Jedna stopa, pět prostorů','Stejný zpěv v koupelně, v katedrále, v autě. Reverb pochopí každý za třicet vteřin.'),
+    i('remeslo','rychle','EQ: ubírat, ne přidávat','Nejčastější chyba začátečníků a nejrychlejší viditelné zlepšení. Dobrý kandidát na nejsdílenější díl.'),
+    i('remeslo','stredni','Autotune bez tajemství','Od tiché korekce k efektu, co je slyšet schválně. Téma, u kterého mají lidi silný názor.'),
+    i('remeslo','rychle','Sidechain, co slyšíš všude','Proč pop „dýchá“. Jakmile to člověk uslyší jednou, slyší to pak pořád.'),
+    i('remeslo','stredni','Beat od nuly za deset minut','Časosběr od prázdného projektu po hotový podklad. Klasika, co funguje pořád.'),
+    i('remeslo','stredni','Co se děje při masteringu','Poslední fáze, kterou nikdo nevidí. Máš na ni vlastní místnost — ukaž ji.'),
+    i('remeslo','rychle','Drahý mikrofon vs. levný','Slepé srovnání. A pak upřímná odpověď, kdy je to vlastně jedno.'),
+
+    /* Trendy a dosah */
+    i('trend','stredni','AI v produkci: co používáme a co ne','Nejkontroverznější téma v branži. Jasný postoj studia přitáhne komentáře i klienty, co hledají jistotu.'),
+    i('trend','stredni','Mobil vs. studio, slepý test','Tři nahrávky stejné věci, jedna za milion, jedna za mobil. Divák hádá v komentářích.'),
+    i('trend','stredni','Rozklad skladby na stopy','Postupné odkrývání stopy po stopě. Nejvyšší dokoukanost ze všech hudebních formátů.'),
+    i('trend','rychle','Demo → master v třiceti vteřinách','A/B přepínání bez jediného slova. Prodá hodnotu studia samo.'),
+    i('trend','rychle','Kolik to stojí','Transparentní ceny hodiny, dne, celé desky. Nikdo to neříká nahlas, proto to lidi čtou.'),
+    i('trend','stredni','Oprav mi track','Posluchač pošle demo, Ondra ho zvedne na kameru. Vrací se to jako seriál a dělá to příchozí poptávku.'),
+    i('trend','rychle','Hádej nástroj podle zvuku','Krátká hádanka do Shorts. Levné na výrobu, vysoká míra dokoukání.'),
+    i('trend','stredni','Jedna melodie v pěti žánrech','Ukáže aranž a zároveň šířku studia — od rapu po dětskou muziku.'),
+    i('trend','rychle','Studio ASMR','Gear, ruce, kabely, žádné mluvení. Zásoba generických kreativ, která jede mezi díly.'),
+
+    /* Lidi a hosté */
+    i('lidi','stredni','Nehudebník nahrává','Influencer, sportovec, senior. Relatabilita, humor a ukázka procesu v jednom.'),
+    i('lidi','velke','Poslouchá svůj track po letech','Interpret slyší vlastní nahrávku po deseti letech a reaguje. Emoce, co se nedá nascénovat.'),
+    i('lidi','stredni','První nahrávka, za kterou se stydím','Otázka, která rozmluví každého hosta. Dobrý otvírák pro díly s hostem.'),
+    i('lidi','velke','Kapela se hádá u mixu','Studio je z velké části psychologie. Tohle je ta část, kterou nikdo neukazuje.'),
+    i('lidi','rychle','Nejpodivnější zakázka','Od koránu po firemní hymnu. Krátké, konkrétní, zapamatovatelné.'),
+
+    /* Archiv a nostalgie */
+    i('archiv','stredni','Jeden kus hardwaru, jeden díl','Mikrodokument o jednom přístroji. Zvukaři to sdílí, laici koukají jako na ASMR.'),
+    i('archiv','rychle','Co stálo studio v roce 2010','Ceny tehdy a dnes. Nostalgie podložená čísly funguje líp než vzpomínání.'),
+    i('archiv','velke','Session log z archivu','Staré papíry, pásky, fotky. Materiál, který nemá nikdo jiný — pokud existuje.'),
+    i('archiv','stredni','Místnost, kde to začalo','Podkroví, ze kterého je jméno studia. Jestli se tam dá vrátit, je to díl sám o sobě.')
+  ];
+}
+
+/* ---------- stav aplikace ---------- */
+let episodes = [];
+let ideas = [];
+let team = [];
+let editingPersonId = null;
+let me = localStorage.getItem('rooftop-me') || '';
+let tab = 'lineup';
+let group = 'sluzba';
+let filter = 'vse';
+let ideaFilter = 'vse';
+let openId = null;
+let openIdeaId = null;
+let editingId = null;
+let editingIdeaId = null;
+let q = '';
+let iq = '';
+let dragId = null;
+
+const STATUS_KEYS = Object.keys(STATUS);
+
+/* ---------- toast ---------- */
+function toast(message, undo){
+  const el = document.createElement('div');
+  el.className = 'toast';
+  const span = document.createElement('span');
+  span.textContent = message;
+  el.appendChild(span);
+  if(undo){
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = 'Vrátit';
+    b.onclick = () => { el.remove(); undo(); };
+    el.appendChild(b);
+  }
+  $('#toasts').appendChild(el);
+  setTimeout(() => el.remove(), undo ? 7000 : 3200);
+}
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- render ---------- */
+function renderMeter(){
+  const track = $('#vuTrack'), legend = $('#vuLegend');
+  const counts = Object.keys(STATUS).map(k => ({
+    k, n: episodes.filter(e => e.status === k).length, ...STATUS[k]
+  }));
+  const total = episodes.length || 1;
+  track.innerHTML = '';
+  counts.forEach(c => {
+    const s = document.createElement('span');
+    s.style.flexGrow = c.n;
+    s.style.background = c.color;
+    s.style.flexBasis = '0';
+    track.appendChild(s);
+  });
+  legend.innerHTML = counts.map(c =>
+    `<span><i style="background:${c.color}"></i><b>${c.n}</b> ${esc(c.label.toLowerCase())}</span>`
+  ).join('') + `<span style="color:var(--alu-dim)">${episodes.length} dílů celkem · ${Math.round(counts.find(c=>c.k==='venku').n/total*100)} % venku</span>`;
+}
+
+function renderFilters(){
+  const opts = [['vse','Vše'], ...Object.entries(TYPES).map(([k,v])=>[k, v.label])];
+  $('#filters').innerHTML = opts.map(([k,l]) =>
+    `<button class="chip" type="button" data-filter="${k}" aria-pressed="${filter===k}">${esc(l)}</button>`
+  ).join('');
+}
+
+function matchEp(e, needle){
+  if(!needle) return true;
+  const owner = who(e.owner);
+  const hay = [e.title, e.artist, e.year, e.hook, owner ? owner.name : '',
+    ...e.notes.map(n => n.text + ' ' + n.by)].join(' ').toLowerCase();
+  return hay.includes(needle);
+}
+
+function renderConsole(){
+  const needle = q.trim().toLowerCase();
+  const list = episodes
+    .filter(e => filter === 'vse' || e.type === filter)
+    .filter(e => matchEp(e, needle));
+  const el = $('#console');
+  const canDrag = !needle && filter === 'vse';
+
+  renderHints(list.length, canDrag);
+
+  if(!list.length){
+    el.innerHTML = needle
+      ? `<p class="empty" style="padding:28px 0">Nic nenalezeno. Zkus jiné slovo.</p>`
+      : `<p class="empty" style="padding:28px 0">Žádný díl tohoto typu. Přidej první.</p>`;
+    return;
+  }
+
+  el.innerHTML = list.map((e) => {
+    const t = TYPES[e.type] || TYPES.X;
+    const s = STATUS[e.status] || STATUS.napad;
+    const open = e.id === openId;
+    const sub = [e.artist, e.year].filter(Boolean).join(', ');
+    const n = e.notes.length;
+    const pos = episodes.indexOf(e) + 1;
+    return `
+    <article class="strip ${open?'open':''}" data-id="${e.id}" style="--type-c:${t.color};--st-c:${s.color}">
+      <div class="strip-head">
+        <button class="strip-toggle" type="button" data-toggle="${e.id}" aria-expanded="${open}">
+          <span class="chan" ${canDrag?'draggable="true"':''} title="${canDrag?'Přetažením změníš pořadí':''}">
+            <span class="num">${String(pos).padStart(2,'0')}</span><span class="kind">${e.type}</span>
+          </span>
+          <span class="title">
+            <h2>${esc(e.title)}</h2>
+            <p>${sub ? esc(sub) + ' · ' : ''}${esc(t.label)}</p>
+          </span>
+        </button>
+        <span class="fader">
+          <input type="range" min="0" max="${STATUS_KEYS.length-1}" step="1"
+                 value="${STATUS_KEYS.indexOf(e.status)}" data-fader="${e.id}"
+                 aria-label="Stav dílu ${esc(e.title)}">
+          <span class="fader-label">${esc(s.label)}</span>
+        </span>
+        <span class="meta" title="${n ? n + ' pozn.' : 'bez poznámek'}">
+          ${n ? `<span class="dot" aria-hidden="true"></span>${n}` : ''}${ownerChip(e.owner)}
+        </span>
+        <button class="caret" type="button" data-toggle="${e.id}" aria-label="${open?'Sbalit':'Rozbalit'} díl">▶</button>
+      </div>
+      ${open ? stripBody(e, t, s) : ''}
+    </article>`;
+  }).join('');
+}
+
+function renderHints(shown, canDrag){
+  const total = episodes.length;
+  const bits = [];
+  if(shown !== total) bits.push(`${shown} z ${total} dílů`);
+  bits.push(canDrag ? 'Pořadí změníš přetažením čísla kanálu.' : 'Pořadí jde měnit jen v nefiltrovaném seznamu.');
+  bits.push('Zkratky: <span class="kbd">/</span> hledat · <span class="kbd">1</span><span class="kbd">2</span><span class="kbd">3</span> záložky · <span class="kbd">N</span> přidat');
+  $('#hints').innerHTML = bits.join(' · ');
+}
+
+function stripBody(e, t, s){
+  return `
+  <div class="strip-body">
+    <div class="detail">
+      <dl>
+        <dt>Typ</dt><dd>${esc(t.label)} — ${esc(t.note)}</dd>
+        ${e.artist ? `<dt>Interpret</dt><dd>${esc(e.artist)}</dd>` : ''}
+        ${e.year ? `<dt>Rok</dt><dd>${esc(e.year)}</dd>` : ''}
+        <dt>Stav</dt><dd>${esc(s.label)}</dd>
+        <dt>Má na starost</dt><dd>${ownerChip(e.owner)}</dd>
+      </dl>
+      ${e.hook ? `<p class="hook"><em>Hook — čím díl otevírá</em>${esc(e.hook)}</p>` : ''}
+      <div class="row-actions">
+        <select data-status="${e.id}" aria-label="Změnit stav">
+          ${Object.entries(STATUS).map(([k,v]) => `<option value="${k}" ${k===e.status?'selected':''}>${esc(v.label)}</option>`).join('')}
+        </select>
+        <select data-owner="${e.id}" aria-label="Změnit, kdo to má na starost">
+          <option value="">Zatím nikdo</option>
+          ${team.map(p => `<option value="${p.id}" ${p.id===e.owner?'selected':''}>${esc(p.name)}</option>`).join('')}
+        </select>
+        <button class="btn ghost" type="button" data-edit="${e.id}">Upravit díl</button>
+        <button class="danger" type="button" data-del="${e.id}">Smazat</button>
+      </div>
+    </div>
+
+    <div class="notes">
+      <h3>Poznámky a nápady</h3>
+      ${e.notes.length
+        ? e.notes.map(n => `
+          <div class="note">
+            <p>${esc(n.text)}</p>
+            <div class="by">${esc(n.by)} · ${fmt(n.at)}<button type="button" data-delnote="${e.id}:${n.id}" title="Smazat poznámku">smazat</button></div>
+          </div>`).join('')
+        : `<p class="empty">Zatím nic. Napiš, co tě k dílu napadlo.</p>`}
+      <form class="composer" data-note="${e.id}">
+        <textarea placeholder="Nápad, otázka pro Ondru, co ověřit…" required></textarea>
+        <div><button class="btn" type="submit">Přidat poznámku</button></div>
+      </form>
+    </div>
+  </div>`;
+}
+
+function fmt(ts){
+  const d = new Date(ts);
+  return d.toLocaleDateString('cs-CZ', {day:'numeric', month:'numeric'}) + ' ' +
+         d.toLocaleTimeString('cs-CZ', {hour:'2-digit', minute:'2-digit'});
+}
+
+function renderWho(){
+  $('#whoLabel').textContent = me ? `Píšeš jako ${me}` : 'Píšeš jako —';
+}
+
+/* ---------- záložka: co můžeme dělat ---------- */
+function groupItems(){
+  const needle = iq.trim().toLowerCase();
+  return ideas
+    .filter(i => (i.kind || 'obsah') === group)
+    .filter(i => !needle || [i.title, i.why, i.by, ...i.notes.map(n => n.text + ' ' + n.by)]
+      .join(' ').toLowerCase().includes(needle));
+}
+
+function renderIdeaFilters(){
+  const inGroup = groupItems();
+  const counts = (k) => k === 'vse' ? inGroup.length : inGroup.filter(i => i.cat === k).length;
+  const opts = [['vse','Vše'], ...Object.entries(catsFor(group)).map(([k,v]) => [k, v.label])];
+  $('#ideaFilters').innerHTML = opts.map(([k,l]) =>
+    `<button class="chip" type="button" data-ifilter="${k}" aria-pressed="${ideaFilter===k}">${esc(l)} <span style="opacity:.6">${counts(k)}</span></button>`
+  ).join('');
+
+  document.querySelectorAll('.group').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.group === group)));
+  $('#groupLede').textContent = GROUPS[group].lede;
+  $('#addIdeaBtn').textContent = group === 'sluzba' ? 'Přidat do nabídky' : 'Přidat nápad';
+}
+
+function renderIdeas(){
+  const inGroup = groupItems();
+  const list = ideaFilter === 'vse' ? inGroup : inGroup.filter(i => i.cat === ideaFilter);
+  const el = $('#ideas');
+
+  if(!list.length){
+    el.innerHTML = iq.trim()
+      ? `<p class="empty">Nic nenalezeno. Zkus jiné slovo.</p>`
+      : `<p class="empty">Tady zatím nic není. Přidej první položku.</p>`;
+    return;
+  }
+
+  el.innerHTML = list.map(idea => {
+    const c = ALL_CATS[idea.cat] || ALL_CATS.remeslo;
+    const ef = EFFORT[idea.effort] || EFFORT.stredni;
+    const open = idea.id === openIdeaId;
+    const isService = (idea.kind || 'obsah') === 'sluzba';
+    const n = idea.notes.length;
+    return `
+    <article class="idea ${open?'open':''}" style="--cat-c:${c.color}">
+      <div class="idea-top">
+        <h3>${esc(idea.title)}</h3>
+        <span class="effort" title="${esc(ef.note)}">${esc(ef.label)}</span>
+      </div>
+      ${idea.why ? `<p class="why">${esc(idea.why)}</p>` : ''}
+      <p class="cat">${esc(c.label)}${idea.by ? ` <span>· ${esc(idea.by)}</span>` : ''}</p>
+      <div class="idea-bar">
+        ${isService ? '' : `<button class="link push" type="button" data-push="${idea.id}">Poslat do lineupu</button><span style="color:var(--edge)">|</span>`}
+        <button class="link" type="button" data-inotes="${idea.id}">${n ? `${n} ${n===1?'komentář':(n<5?'komentáře':'komentářů')}` : 'Okomentovat'}</button>
+        <span class="spacer"></span>
+        <button class="link" type="button" data-iedit="${idea.id}">Upravit</button>
+        <button class="link" type="button" data-idel="${idea.id}">Smazat</button>
+      </div>
+      ${open ? ideaNotes(idea, isService) : ''}
+    </article>`;
+  }).join('');
+}
+
+function ideaNotes(idea, isService){
+  return `
+  <div class="idea-notes">
+    ${idea.notes.length
+      ? idea.notes.map(n => `
+        <div class="note">
+          <p>${esc(n.text)}</p>
+          <div class="by">${esc(n.by)} · ${fmt(n.at)}<button type="button" data-idelnote="${idea.id}:${n.id}">smazat</button></div>
+        </div>`).join('')
+      : `<p class="empty">Zatím bez komentáře. ${isService ? 'Napiš, co k tomu umíš přidat ty.' : 'Napiš, co by to podle tebe chtělo.'}</p>`}
+    <form class="composer" data-inote="${idea.id}">
+      <textarea placeholder="${isService ? 'Co k tomu zvládneš, co by chtělo doladit…' : 'Jak bys to natočil, co k tomu máš…'}" required></textarea>
+      <div><button class="btn" type="submit">Přidat komentář</button></div>
+    </form>
+  </div>`;
+}
+
+/* ---------- záložka: kdo co dělá ---------- */
+const who = (id) => team.find(p => p.id === id) || null;
+const initials = (name) => String(name||'?').trim().split(/\s+/).slice(0,2).map(w => w[0]||'').join('').toUpperCase() || '?';
+
+function ownerChip(id){
+  const p = who(id);
+  if(!p) return `<span class="owner none"><span class="ava">?</span>nezadáno</span>`;
+  return `<span class="owner"><span class="ava" style="--who-c:${p.color};background:${p.color}">${esc(initials(p.name))}</span>${esc(p.name)}</span>`;
+}
+
+function renderTeam(){
+  $('#team').innerHTML = team.map(p => {
+    const mine = episodes.filter(e => e.owner === p.id);
+    const done = mine.filter(e => e.status === 'venku' || e.status === 'natoceno').length;
+    const filled = p.role || p.bio || p.does.length;
+    return `
+    <article class="person" style="--who-c:${p.color}">
+      <div class="person-top">
+        <span class="ava">${esc(initials(p.name))}</span>
+        <span class="person-id">
+          <h3>${esc(p.name)}</h3>
+          <p>${p.role ? esc(p.role) : 'Role zatím nevyplněná'}</p>
+        </span>
+      </div>
+      ${filled
+        ? `${p.bio ? `<p class="bio">${esc(p.bio)}</p>` : ''}
+           ${p.does.length ? `<ul class="does">${p.does.map(d => `<li>${esc(d)}</li>`).join('')}</ul>` : ''}`
+        : `<p class="todo">${p.hint ? esc(p.hint) : `Zatím o ${esc(p.name)} nic nevíme. Doplň roli a co má na starost — ostatní uvidí, na koho se obrátit.`}</p>`}
+      <div class="person-bar">
+        <span class="load">${mine.length ? `<b>${mine.length}</b> ${mine.length===1?'díl':(mine.length<5?'díly':'dílů')} · ${done} hotovo` : 'Zatím bez dílů'}</span>
+        <span class="spacer"></span>
+        <button class="link" type="button" data-pedit="${p.id}">${filled ? 'Upravit' : 'Vyplnit'}</button>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+function renderTabs(){
+  document.querySelectorAll('.tab').forEach(b =>
+    b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+  $('#panel-lineup').hidden = tab !== 'lineup';
+  $('#panel-ideas').hidden  = tab !== 'ideas';
+  $('#panel-team').hidden   = tab !== 'team';
+}
+
+function renderAll(){
+  renderTabs(); renderMeter(); renderFilters(); renderConsole();
+  renderIdeaFilters(); renderIdeas(); renderTeam(); renderWho();
+}
+
+async function commit(){ await store.save({episodes, ideas, team}); renderAll(); }
+
+/* ---------- interakce ---------- */
+document.addEventListener('click', async (ev) => {
+  const t = ev.target.closest('[data-toggle],[data-filter],[data-edit],[data-del],[data-delnote],[data-tab],[data-pedit],[data-group],[data-ifilter],[data-inotes],[data-push],[data-iedit],[data-idel],[data-idelnote]');
+  if(!t) return;
+
+  if(t.dataset.tab){ tab = t.dataset.tab; renderTabs(); return; }
+
+  if(t.dataset.pedit){ openPersonDialog(t.dataset.pedit); return; }
+
+  if(t.dataset.group){
+    group = t.dataset.group; ideaFilter = 'vse'; openIdeaId = null;
+    renderIdeaFilters(); renderIdeas(); return;
+  }
+
+  if(t.dataset.toggle){
+    openId = openId === t.dataset.toggle ? null : t.dataset.toggle;
+    renderConsole();
+    return;
+  }
+  if(t.dataset.filter){
+    filter = t.dataset.filter; openId = null; renderFilters(); renderConsole(); return;
+  }
+  if(t.dataset.ifilter){
+    ideaFilter = t.dataset.ifilter; openIdeaId = null; renderIdeaFilters(); renderIdeas(); return;
+  }
+  if(t.dataset.inotes){
+    openIdeaId = openIdeaId === t.dataset.inotes ? null : t.dataset.inotes;
+    renderIdeas(); return;
+  }
+  if(t.dataset.iedit){ openIdeaDialog(t.dataset.iedit); return; }
+  if(t.dataset.push){ await pushToLineup(t.dataset.push); return; }
+  if(t.dataset.idel){
+    const idx = ideas.findIndex(x => x.id === t.dataset.idel);
+    if(idx < 0) return;
+    const [removed] = ideas.splice(idx, 1);
+    openIdeaId = null;
+    await commit();
+    toast(`„${removed.title}“ smazáno.`, async () => {
+      ideas.splice(idx, 0, removed);
+      await commit();
+    });
+    return;
+  }
+  if(t.dataset.idelnote){
+    const [iid, nid] = t.dataset.idelnote.split(':');
+    const i = ideas.find(x => x.id === iid);
+    if(i){ i.notes = i.notes.filter(n => n.id !== nid); await commit(); }
+    return;
+  }
+  if(t.dataset.edit){ openDialog(t.dataset.edit); return; }
+  if(t.dataset.del){
+    const idx = episodes.findIndex(x => x.id === t.dataset.del);
+    if(idx < 0) return;
+    const [removed] = episodes.splice(idx, 1);
+    openId = null;
+    await commit();
+    toast(`Díl „${removed.title}“ smazán.`, async () => {
+      episodes.splice(idx, 0, removed);
+      await commit();
+    });
+    return;
+  }
+  if(t.dataset.delnote){
+    const [eid, nid] = t.dataset.delnote.split(':');
+    const e = episodes.find(x => x.id === eid);
+    if(e){ e.notes = e.notes.filter(n => n.id !== nid); await commit(); }
+  }
+});
+
+async function pushToLineup(id){
+  const idea = ideas.find(x => x.id === id);
+  if(!idea) return;
+  if(episodes.some(e => e.title === idea.title)){
+    toast('Tenhle nápad už v lineupu je.');
+    return;
+  }
+  episodes.push({
+    id:uid(), title:idea.title, artist:'', year:'', type:'X', status:'napad',
+    hook:idea.why || '',
+    notes:idea.notes.map(n => ({...n})),
+    fromIdea:idea.id
+  });
+  const added = episodes[episodes.length-1];
+  await commit();
+  tab = 'lineup'; openId = added.id; q = ''; filter = 'vse';
+  $('#q').value = ''; $('#qClear').hidden = true;
+  renderTabs(); renderFilters(); renderConsole();
+  const el = document.querySelector(`.strip[data-id="${added.id}"]`);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+  toast(`„${added.title}“ je v lineupu jako díl ${episodes.length}.`);
+}
+
+/* ---------- fader jako ovladač stavu ---------- */
+document.addEventListener('input', (ev) => {
+  const r = ev.target.closest('[data-fader]');
+  if(!r) return;
+  const key = STATUS_KEYS[+r.value];
+  const s = STATUS[key];
+  const strip = r.closest('.strip');
+  strip.style.setProperty('--st-c', s.color);
+  strip.querySelector('.fader-label').textContent = s.label;
+});
+
+document.addEventListener('change', async (ev) => {
+  const sel = ev.target.closest('[data-status]');
+  if(sel){
+    const e = episodes.find(x => x.id === sel.dataset.status);
+    if(e){ e.status = sel.value; await commit(); }
+    return;
+  }
+  const osel = ev.target.closest('[data-owner]');
+  if(osel){
+    const e = episodes.find(x => x.id === osel.dataset.owner);
+    if(e){
+      e.owner = osel.value;
+      await commit();
+      const p = who(e.owner);
+      toast(p ? `„${e.title}“ má na starost ${p.name}.` : `„${e.title}“ je bez majitele.`);
+    }
+    return;
+  }
+  const r = ev.target.closest('[data-fader]');
+  if(!r) return;
+  const e = episodes.find(x => x.id === r.dataset.fader);
+  if(!e) return;
+  e.status = STATUS_KEYS[+r.value];
+  await store.save({episodes, ideas});
+  renderMeter();
+  const s2 = document.querySelector(`[data-status="${e.id}"]`);
+  if(s2) s2.value = e.status;
+});
+
+/* ---------- přetahování pořadí ---------- */
+document.addEventListener('dragstart', (ev) => {
+  const chan = ev.target.closest('.chan[draggable]');
+  if(!chan) return;
+  dragId = chan.closest('.strip').dataset.id;
+  ev.dataTransfer.effectAllowed = 'move';
+  ev.dataTransfer.setData('text/plain', dragId);
+  chan.closest('.strip').classList.add('dragging');
+});
+
+document.addEventListener('dragend', () => {
+  dragId = null;
+  document.querySelectorAll('.strip').forEach(s => s.classList.remove('dragging','over'));
+});
+
+document.addEventListener('dragover', (ev) => {
+  if(!dragId) return;
+  const strip = ev.target.closest('.strip');
+  if(!strip || strip.dataset.id === dragId) return;
+  ev.preventDefault();
+  ev.dataTransfer.dropEffect = 'move';
+  document.querySelectorAll('.strip.over').forEach(s => s.classList.remove('over'));
+  strip.classList.add('over');
+});
+
+document.addEventListener('drop', async (ev) => {
+  if(!dragId) return;
+  const strip = ev.target.closest('.strip');
+  if(!strip) return;
+  ev.preventDefault();
+  const targetId = strip.dataset.id;
+  if(targetId === dragId) return;
+
+  const from = episodes.findIndex(e => e.id === dragId);
+  const to   = episodes.findIndex(e => e.id === targetId);
+  if(from < 0 || to < 0) return;
+
+  const [moved] = episodes.splice(from, 1);
+  episodes.splice(to, 0, moved);
+  dragId = null;
+  await commit();
+  toast(`„${moved.title}“ je teď na pozici ${to + 1}.`);
+});
+
+document.addEventListener('submit', async (ev) => {
+  const noteForm = ev.target.closest('[data-note]');
+  const ideaForm = ev.target.closest('[data-inote]');
+  if(!noteForm && !ideaForm) return;
+  ev.preventDefault();
+
+  const form = noteForm || ideaForm;
+  const ta = form.querySelector('textarea');
+  const text = ta.value.trim();
+  if(!text) return;
+  if(!me){ await askName(); if(!me) return; }
+
+  const target = noteForm
+    ? episodes.find(x => x.id === noteForm.dataset.note)
+    : ideas.find(x => x.id === ideaForm.dataset.inote);
+
+  if(target){ target.notes.push({id:uid(), by:me, text, at:Date.now()}); ta.value=''; await commit(); }
+});
+
+/* ---------- dialog dílu ---------- */
+function fillSelects(){
+  $('#f-type').innerHTML = Object.entries(TYPES).map(([k,v]) => `<option value="${k}">${k} — ${esc(v.label)}</option>`).join('');
+  $('#f-status').innerHTML = Object.entries(STATUS).map(([k,v]) => `<option value="${k}">${esc(v.label)}</option>`).join('');
+  $('#i-effort').innerHTML = Object.entries(EFFORT).map(([k,v]) => `<option value="${k}">${esc(v.label)} — ${esc(v.note)}</option>`).join('');
+}
+
+function openDialog(id){
+  editingId = id || null;
+  const e = id ? episodes.find(x => x.id === id) : null;
+  $('#dlgTitle').textContent = e ? 'Upravit díl' : 'Nový díl';
+  $('#dlgSave').textContent = e ? 'Uložit změny' : 'Přidat díl';
+  $('#f-title').value  = e ? e.title : '';
+  $('#f-artist').value = e ? e.artist : '';
+  $('#f-year').value   = e ? e.year : '';
+  $('#f-owner').innerHTML = `<option value="">Zatím nikdo</option>` +
+    team.map(p => `<option value="${p.id}">${esc(p.name)}${p.role ? ' — ' + esc(p.role) : ''}</option>`).join('');
+  $('#f-type').value   = e ? e.type : 'A';
+  $('#f-status').value = e ? e.status : 'napad';
+  $('#f-owner').value  = e ? (e.owner || '') : '';
+  $('#f-hook').value   = e ? e.hook : '';
+  $('#epDialog').showModal();
+}
+
+$('#addBtn').addEventListener('click', () => openDialog(null));
+$('#dlgCancel').addEventListener('click', () => $('#epDialog').close());
+
+$('#epForm').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const data = {
+    title:  $('#f-title').value.trim(),
+    artist: $('#f-artist').value.trim(),
+    year:   $('#f-year').value.trim(),
+    type:   $('#f-type').value,
+    status: $('#f-status').value,
+    owner:  $('#f-owner').value,
+    hook:   $('#f-hook').value.trim()
+  };
+  if(!data.title) return;
+  if(editingId){
+    Object.assign(episodes.find(x => x.id === editingId), data);
+  }else{
+    episodes.push(Object.assign({id:uid(), notes:[]}, data));
+  }
+  $('#epDialog').close();
+  await commit();
+});
+
+/* ---------- dialog osoby ---------- */
+function openPersonDialog(id){
+  const p = who(id);
+  if(!p) return;
+  editingPersonId = id;
+  $('#personDlgTitle').textContent = `Profil — ${p.name}`;
+  $('#p-name').value = p.name;
+  $('#p-role').value = p.role;
+  $('#p-bio').value  = p.bio;
+  $('#p-does').value = p.does.join('\n');
+  $('#personDialog').showModal();
+}
+
+$('#personCancel').addEventListener('click', () => $('#personDialog').close());
+
+$('#personForm').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const p = who(editingPersonId);
+  if(!p) return;
+  const name = $('#p-name').value.trim();
+  if(!name) return;
+  p.name = name;
+  p.role = $('#p-role').value.trim();
+  p.bio  = $('#p-bio').value.trim();
+  p.does = $('#p-does').value.split('\n').map(s => s.trim()).filter(Boolean);
+  if(p.role || p.bio || p.does.length) delete p.hint;
+  $('#personDialog').close();
+  await commit();
+  toast(`Profil ${p.name} uložen.`);
+});
+
+/* ---------- dialog nápadu ---------- */
+function openIdeaDialog(id){
+  editingIdeaId = id || null;
+  const i = id ? ideas.find(x => x.id === id) : null;
+  const g = i ? (i.kind || 'obsah') : group;
+  const isService = g === 'sluzba';
+
+  $('#i-cat').innerHTML = Object.entries(catsFor(g))
+    .map(([k,v]) => `<option value="${k}">${esc(v.label)}</option>`).join('');
+
+  $('#ideaDlgTitle').textContent = i
+    ? (isService ? 'Upravit nabídku' : 'Upravit nápad')
+    : (isService ? 'Nová položka nabídky' : 'Nový nápad');
+  $('#ideaDlgLede').textContent = isService
+    ? 'Napiš to tak, jak to zajímá majitele studia — co mu to vydělá nebo ušetří.'
+    : 'Co studio umí natočit. Jedna věta proč to zabere.';
+  $('#ideaTitleLabel').textContent = isService ? 'Co nabízíme' : 'Nápad';
+  $('#ideaWhyLabel').textContent = isService ? 'Co z toho studio má' : 'Proč to zabere';
+  $('#ideaSave').textContent = i ? 'Uložit změny' : 'Přidat';
+
+  $('#i-title').value  = i ? i.title : '';
+  $('#i-cat').value    = i ? i.cat : Object.keys(catsFor(g))[0];
+  $('#i-effort').value = i ? i.effort : 'stredni';
+  $('#i-why').value    = i ? i.why : '';
+  $('#ideaDialog').showModal();
+}
+
+$('#addIdeaBtn').addEventListener('click', () => openIdeaDialog(null));
+$('#ideaCancel').addEventListener('click', () => $('#ideaDialog').close());
+
+$('#ideaForm').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const title = $('#i-title').value.trim();
+  if(!title) return;
+  if(!me){ await askName(); if(!me) return; }
+  const data = {
+    title,
+    cat:    $('#i-cat').value,
+    effort: $('#i-effort').value,
+    why:    $('#i-why').value.trim()
+  };
+  if(editingIdeaId){
+    Object.assign(ideas.find(x => x.id === editingIdeaId), data);
+  }else{
+    ideas.unshift(Object.assign({id:uid(), kind:group, by:me, notes:[]}, data));
+    ideaFilter = 'vse';
+  }
+  $('#ideaDialog').close();
+  await commit();
+});
+
+/* ---------- hledání ---------- */
+function wireSearch(inputId, clearId, onChange){
+  const input = $(inputId), clear = $(clearId);
+  let timer;
+  input.addEventListener('input', () => {
+    clear.hidden = !input.value;
+    clearTimeout(timer);
+    timer = setTimeout(() => onChange(input.value), 110);
+  });
+  input.addEventListener('keydown', (ev) => {
+    if(ev.key === 'Escape'){ input.value=''; clear.hidden = true; onChange(''); input.blur(); }
+  });
+  clear.addEventListener('click', () => {
+    input.value=''; clear.hidden = true; onChange(''); input.focus();
+  });
+}
+
+wireSearch('#q', '#qClear', (v) => { q = v; openId = null; renderConsole(); });
+wireSearch('#iq', '#iqClear', (v) => { iq = v; openIdeaId = null; renderIdeaFilters(); renderIdeas(); });
+
+/* ---------- klávesové zkratky ---------- */
+document.addEventListener('keydown', (ev) => {
+  const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(ev.target.tagName);
+  if(ev.metaKey || ev.ctrlKey || ev.altKey) return;
+
+  if(ev.key === 'Escape' && !typing){
+    if(openId){ openId = null; renderConsole(); return; }
+    if(openIdeaId){ openIdeaId = null; renderIdeas(); return; }
+  }
+  if(typing) return;
+
+  if(ev.key === '/'){
+    ev.preventDefault();
+    $(tab === 'lineup' ? '#q' : '#iq').focus();
+  }else if(ev.key === '1'){
+    tab = 'lineup'; renderTabs();
+  }else if(ev.key === '2'){
+    tab = 'ideas'; renderTabs();
+  }else if(ev.key === '3'){
+    tab = 'team'; renderTabs();
+  }else if(ev.key === 'n' || ev.key === 'N'){
+    if(tab === 'team') return;
+    ev.preventDefault();
+    tab === 'lineup' ? openDialog(null) : openIdeaDialog(null);
+  }
+});
+
+/* ---------- jméno ---------- */
+function askName(){
+  return new Promise(res => {
+    $('#f-name').value = me;
+    $('#nameDialog').showModal();
+    $('#nameForm').onsubmit = (ev) => {
+      ev.preventDefault();
+      me = $('#f-name').value.trim();
+      if(me) localStorage.setItem('rooftop-me', me);
+      $('#nameDialog').close();
+      renderWho(); res();
+    };
+    $('#nameDialog').addEventListener('close', () => res(), {once:true});
+  });
+}
+$('#whoBtn').addEventListener('click', askName);
+
+/* ---------- start ---------- */
+(async function init(){
+  fillSelects();
+  const data = await store.load();
+  episodes = (data.episodes || []).map(e => ({owner:'', ...e}));
+  ideas    = data.ideas || [];
+  team     = (data.team || seedTeam()).map(p => ({role:'', bio:'', does:[], ...p}));
+  await store.save({episodes, ideas, team});
+  renderAll();
+})();
+</script>
+</body>
+</html>
